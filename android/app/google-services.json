@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "254097529461",
+    "project_id": "invoiceease-303c7",
+    "storage_bucket": "invoiceease-303c7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:254097529461:android:4da36df4a2075e620df63c",
+        "android_client_info": {
+          "package_name": "com.example.invoiceease"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpCx-DJs8-7UPdqGi17ABVnzRx9jNVET0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

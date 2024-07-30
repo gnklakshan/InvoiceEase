@@ -14,10 +14,10 @@ class _detailScreenState extends State<detailScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Color.fromARGB(255, 184, 137, 245),
+          backgroundColor: Color.fromARGB(255, 26, 125, 56),
           title: Text(
-            "Details ",
-            style: TextStyle(color: Colors.black26),
+            "Billing ",
+            style: TextStyle(color: const Color.fromARGB(233, 0, 0, 0)),
           ),
         ),
         body: SingleChildScrollView(
@@ -33,17 +33,17 @@ class _detailScreenState extends State<detailScreen> {
               ),
               const Column(
                 children: [
-                  Text(
-                    "Details ",
-                    style: TextStyle(color: Colors.black26),
-                  ),
-                  SizedBox(
-                    height: 150,
-                  ),
-                  Text(
-                    "Details ",
-                    style: TextStyle(color: Colors.black26),
-                  ),
+                  // Text(
+                  //   "Details ",
+                  //   style: TextStyle(color: Colors.black26),
+                  // ),
+                  // SizedBox(
+                  //   height: 150,
+                  // ),
+                  // Text(
+                  //   "Details ",
+                  //   style: TextStyle(color: Colors.black26),
+                  // ),
                   //Container(color: Colors.black,)
                 ],
               )
@@ -61,7 +61,7 @@ class CurvedPainter extends CustomPainter {
     // Layer 1
 
     Paint paint_fill_0 = Paint()
-      ..color = Color.fromARGB(255, 184, 137, 245)
+      ..color = Color.fromARGB(255, 26, 125, 56)
       ..style = PaintingStyle.fill
       ..strokeWidth = size.width * 0.00
       ..strokeCap = StrokeCap.butt

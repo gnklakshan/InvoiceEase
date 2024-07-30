@@ -1,7 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:invoiceease/interfaces/loginSignup/login.dart';
-import 'package:invoiceease/reuseable_functions/interface_related.dart';
+import 'package:get/get.dart';
+import 'package:invoiceease/backend/firebase_auth.dart';
+import 'package:invoiceease/utils/reuseable_functions/interface_related.dart';
 
 class Signupscreen extends StatefulWidget {
   const Signupscreen({super.key});
@@ -11,9 +11,10 @@ class Signupscreen extends StatefulWidget {
 }
 
 class _SignupscreenState extends State<Signupscreen> {
-  late TextEditingController usernamenameController = TextEditingController();
-  late String password;
-  late String confirmpassword;
+  TextEditingController usernamenameController = TextEditingController();
+  String password = '';
+  String confirmpassword = '';
+  bool ispasswordmatch = true;
 
   //to print namecontroller - username value to the console----------------------
   @override
@@ -30,10 +31,10 @@ class _SignupscreenState extends State<Signupscreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Color.fromARGB(255, 144, 179, 184),
-        body: SingleChildScrollView(
+    return Scaffold(
+      backgroundColor: Color.fromARGB(255, 144, 179, 184),
+      body: SingleChildScrollView(
+        child: SafeArea(
           child: Stack(
             children: <Widget>[
               Container(
@@ -96,16 +97,34 @@ class _SignupscreenState extends State<Signupscreen> {
                       },
                       varname: 'Confirm Password',
                     ),
+                    if (!(ispasswordmatch = (password == confirmpassword)))
+                      const Align(
+                        alignment: Alignment.topRight,
+                        child: Padding(
+                          padding: EdgeInsets.all(2.0),
+                          child: Text(
+                            "Password not matched",
+                            style: TextStyle(
+                                color: Color.fromARGB(255, 197, 39, 27)),
+                          ),
+                        ),
+                      ),
                     const SizedBox(
-                      height: 60,
+                      height: 50,
                     ),
                     GestureDetector(
-                      onTap: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => LoginScreen()),
-                        );
+                      onTap: () async {
+                        final newuser = await registerWithEmailAndPassword(
+                            usernamenameController.text, password);
+
+                        if (newuser != null) {
+                          Get.toNamed('/l');
+                        } else {
+                          Get.snackbar('Error', 'User creation failed',
+                              backgroundColor:
+                                  const Color.fromARGB(112, 255, 255, 255),
+                              icon: Icon(Icons.warning));
+                        }
                       },
                       child: Container(
                           height: 50,

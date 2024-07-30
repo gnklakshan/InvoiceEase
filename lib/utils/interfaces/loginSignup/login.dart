@@ -1,10 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:invoiceease/interfaces/loginSignup/signup.dart';
-import 'package:invoiceease/interfaces/onboardingScreen/welcome.dart';
-import 'package:invoiceease/reuseable_functions/interface_related.dart';
+import 'package:get/get.dart';
+import 'package:invoiceease/backend/firebase_auth.dart';
+import 'package:invoiceease/utils/reuseable_functions/interface_related.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -15,7 +13,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController nameController = TextEditingController();
-  late String password;
+  String password = '';
 
   //to print namecontroller - username value to the console----------------------
   @override
@@ -31,10 +29,10 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Color.fromARGB(255, 144, 179, 184),
-        body: Padding(
+    return Scaffold(
+      backgroundColor: Color.fromARGB(255, 144, 179, 184),
+      body: SafeArea(
+        child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: SingleChildScrollView(
             child: Padding(
@@ -78,6 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   GestureDetector(
                     onTap: () {
+                      Get.toNamed('/register');
                       debugPrint("onTap");
                     },
                     child: const Align(
@@ -94,12 +93,21 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 12,
                   ),
                   GestureDetector(
-                    onTap: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => welcomeScreen()),
-                      );
+                    // onTap: () {
+                    //   Get.toNamed('/login');
+                    // },
+                    onTap: () async {
+                      final newuser = await signInWithEmailAndPassword(
+                          nameController.text, password);
+                      // Get.toNamed(
+                      //     '/dashbord'); //remove this ,used for go other interface without credential
+                      if (newuser != null) {
+                        Get.toNamed('/dashbord');
+                      } else {
+                        Get.snackbar('Error', 'User creation failed',
+                            backgroundColor: Color.fromARGB(67, 255, 255, 255),
+                            icon: Icon(Icons.warning));
+                      }
                     },
                     child: Container(
                         height: 50,
@@ -134,11 +142,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               text: ' Register ',
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
-                                  Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => Signupscreen()),
-                                  );
+                                  Get.toNamed('/register');
                                   debugPrint('The button is clicked!');
                                 },
                               //recognizer: GestureDoubleTapCallback()..,
